@@ -15,12 +15,23 @@ if (isset($_POST['todo'])) {
         'todo' => $data,
         'status' => 0
     ];
-    file_put_contents('todos.txt', serialize($todos));
-    header('location: index.php');
+    saveData($todos);
 }
 
 if (isset($_GET['status'])) {
     $todos[$_GET['key']]['status'] = $_GET['status'];
+    saveData($todos);
+
+}
+
+if (isset($_GET['hapus'])) {
+    unset($todos[$_GET['key']]);
+    saveData($todos);
+
+}
+
+function saveData($todos)
+{
     file_put_contents('todos.txt', serialize($todos));
     header('location: index.php');
 }
@@ -52,7 +63,7 @@ print_r($todos);
         <?php foreach ($todos as $key => $value): ?>
             <li>
                 <input type="checkbox" name="todo"
-                    onclick="window.location.href = 'index.php?status=<?php ($value['status'] == 1 ? 0 : 1) ?>&key=<?= $key; ?>'"
+                    onclick="window.location.href = 'index.php?status=<?= ($value['status'] == 1 ? 0 : 1) ?>&key=<?= $key; ?>'"
                     <?php if ($value['status'] == 1)
                         echo 'checked'; ?>>
                 <label>
@@ -64,7 +75,7 @@ print_r($todos);
                     }
                     ?>
                 </label>
-                <a href="#">Hapus</a>
+                <a href="index.php?hapus=1&key=<?= $key; ?>" onclick="return confirm('Yakin akan dihapus?')">Hapus</a>
             </li>
         <?php endforeach; ?>
     </ul>
