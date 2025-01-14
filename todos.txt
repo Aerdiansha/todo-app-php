@@ -1,1 +1,0 @@
-a:3:{i:1;a:2:{s:4:"todo";s:5:"minum";s:6:"status";i:0;}i:2;a:2:{s:4:"todo";s:7:"sarapan";s:6:"status";i:0;}i:3;a:2:{s:4:"todo";s:5:"tidur";s:6:"status";i:0;}}
