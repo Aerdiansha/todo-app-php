@@ -1,10 +1,15 @@
 <?php 
-$todos = [];
-$file = file_get_contents('todos.txt');
-$todos = unserialize($file);
+$todos = []; // total array yang disiapkan
+if(file_exists('todos.txt')) { // jika file todos.txt ada
+    // maka membaca file todos.txt
+    $file = file_get_contents('todos.txt');  // membaca file todos.txt
+    $todos = unserialize($file); // mengubah format serialize ke array
+};
 
+
+// jika ditemukan data todo melalui method post
 if(isset($_POST['todo'])) {
-    $data = $_POST['todo'];
+    $data = $_POST['todo']; // mengambil data todo pada form
     $todos[] = [
         'todo' => $data,
         'status' => 0
@@ -32,21 +37,13 @@ if(isset($_POST['todo'])) {
     </form>
 
     <ul>
+        <?php foreach($todos as $key => $value): ?>
         <li>
             <input type="checkbox" name="todo">
-            <label>Todo 1</label>
+            <label><?= $value['todo']; ?></label>
             <a href="#">Hapus</a>
         </li>
-        <li>
-            <input type="checkbox" name="todo">
-            <label>Todo 1</label>
-            <a href="#">Hapus</a>
-        </li>
-        <li>
-            <input type="checkbox" name="todo">
-            <label>Todo 1</label>
-            <a href="#">Hapus</a>
-        </li>
+        <?php endforeach; ?>
     </ul>
 </body>
 </html>
