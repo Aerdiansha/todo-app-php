@@ -1,3 +1,20 @@
+<?php 
+$todos = [];
+$file = file_get_contents('todos.txt');
+$todos = unserialize($file);
+
+if(isset($_POST['todo'])) {
+    $data = $_POST['todo'];
+    $todos[] = [
+        'todo' => $data,
+        'status' => 0
+    ];
+    file_put_contents('todos.txt', serialize($todos));
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +25,7 @@
 <body>
     <h1>To Do App</h1>
 
-    <form action="">
+    <form method="post">
         <label for="">Apa kegiatanmu hari ini?</label>
         <input type="text" name="todo">
         <button type="submit">Simpan</button>
