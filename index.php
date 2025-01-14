@@ -36,7 +36,7 @@ function saveData($todos)
     header('location: index.php');
 }
 
-print_r($todos);
+// print_r($todos);
 
 ?>
 
